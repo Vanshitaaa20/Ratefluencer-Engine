@@ -32,6 +32,10 @@ data/vector/
 data/synthetic/
 data/seed/
 
+# Frontend (React/Vite) — deps + build output are regenerable
+web/node_modules/
+web/dist/
+
 # Documentation — only README.md is published
 ARCHITECTURE.md
 INTEGRATION.md
