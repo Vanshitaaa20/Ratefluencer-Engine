@@ -36,7 +36,7 @@
 }
 
 * { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
+html, body { margin: 0; padding: 0; max-width: 100%; overflow-x: hidden; }
 body {
   background: var(--bg);
   color: var(--text);
@@ -201,3 +201,74 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
 .divider { height: 1px; background: var(--border-soft); }
 a.linkish { color: var(--accent-2); text-decoration: none; }
 a.linkish:hover { text-decoration: underline; }
+
+/* ============================================================
+   Responsive layer
+   Desktop design is unchanged: these rules only kick in at the
+   breakpoints below. `!important` is used so media queries can
+   override the inline grid-template-columns set in the JSX.
+   ============================================================ */
+
+/* tablet / smaller laptops — tighten the shell gutters */
+@media (max-width: 1040px) {
+  .app-shell { padding: 0 20px; }
+  .topbar-inner { padding: 14px 20px; }
+}
+
+/* breadcrumbs overflow once the bar gets tight — drop them */
+@media (max-width: 860px) {
+  .crumbs { display: none; }
+}
+
+/* main two-column layouts collapse to a single column */
+@media (max-width: 920px) {
+  .r-shortlist   { grid-template-columns: 1fr !important; }
+  .r-sidebar     { position: static !important; top: auto !important; }
+  .r-featured    { grid-template-columns: 1fr !important; gap: 22px !important; }
+  .r-composite   { border-left: none !important; padding-left: 0 !important;
+                   border-top: 1px solid var(--border); padding-top: 20px; text-align: left !important; }
+  .r-roihero     { grid-template-columns: 1fr !important; gap: 24px !important; }
+  .r-grid-2      { grid-template-columns: 1fr !important; }
+}
+
+/* phones — collapse stat/metric grids and reflow the list/allocation rows */
+@media (max-width: 680px) {
+  .r-grid-4 { grid-template-columns: repeat(2, 1fr) !important; }
+  .r-grid-3 { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* hero headline scales down so it doesn't overflow */
+  .r-hero-title { font-size: 38px !important; }
+  .brief-area { font-size: 15px !important; min-height: 150px; }
+
+  /* shortlist rows: rank + name + status on line 1, chips on line 2 */
+  .crow { display: flex !important; flex-wrap: wrap; gap: 12px 14px !important; }
+  .crow-name  { flex: 1 1 55%; min-width: 0; }
+  .crow-tail  { margin-left: auto; }
+  .crow-chips { flex: 1 1 100%; order: 9; justify-content: flex-start; gap: 18px; }
+  .crow-flag  { flex: 1 1 100%; order: 9; }
+
+  /* recommendation allocation rows: index + name + amount on line 1, bar on line 2 */
+  .r-alloc     { display: flex !important; flex-wrap: wrap; gap: 10px 14px !important; align-items: center; }
+  .r-alloc-bar { flex: 1 1 100%; order: 9; }
+  .r-alloc-amt { margin-left: auto; }
+
+  /* long handles in list rows truncate instead of forcing horizontal overflow */
+  .crow-handle { overflow: hidden; text-overflow: ellipsis; }
+}
+
+/* card headers (featured / detail): let the row wrap and long handles break
+   so a long @handle can never push the card wider than the screen */
+@media (max-width: 560px) {
+  .r-card-head { flex-wrap: wrap; row-gap: 12px; }
+  .r-id        { min-width: 0; }
+  .r-id-line   { flex-wrap: wrap; row-gap: 4px; }
+  .r-handle    { overflow-wrap: anywhere; word-break: break-word; font-size: 20px !important; }
+}
+
+/* very small phones — single-column metric grids */
+@media (max-width: 460px) {
+  .r-grid-4 { grid-template-columns: 1fr !important; }
+  .r-grid-3 { grid-template-columns: 1fr !important; }
+  .r-featured-scores { grid-template-columns: 1fr !important; }
+  .r-hero-title { font-size: 32px !important; }
+}
