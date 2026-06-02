@@ -1,0 +1,14 @@
+handle,followers,following,avg_likes,avg_comments,posts,category,verified
+# Fill these rows with REAL, PUBLIC numbers from Instagram profiles you want to
+# screen. avg_likes / avg_comments = eyeball the average across a creator's last
+# ~10 posts. shares/saves/audience aren't public, so the tool uses the
+# engagement-vs-size signal (the main bot tell). Lines starting with # are ignored.
+# Columns: handle,followers,following,avg_likes,avg_comments,posts,category,verified
+#
+# --- TEST B rows: predict the band before running ---
+@test.real.creator,50000,500,3000,200,240,skincare,False
+@test.bought.followers,500000,4000,2000,30,600,skincare,True
+@test.tiny.engaged,8000,300,900,80,180,fitness,False
+# --- The tier-awareness test: SAME likes (2000), very different follower counts ---
+@test.same.likes.small,40000,600,2000,150,210,skincare,False
+@test.same.likes.huge,800000,5000,2000,150,650,skincare,True
